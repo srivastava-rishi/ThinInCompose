@@ -2,23 +2,10 @@ package com.example.thinkincompose
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,12 +23,15 @@ import com.example.thinkincompose.ui.theme.paragraph
 import com.example.thinkincompose.ui.theme.paragraphLarge
 import com.example.thinkincompose.ui.theme.smallParagraph
 
-
 @Composable
 fun NewsDetailScreen(
     newsId: String?,
     onBack: () -> Unit
 ) {
+    /*
+    Fetch the news item data based on the provided newsId.
+    onBack -> callback function is integrated into the navigation graph to handle back navigation
+    */
     val data = getNewsById(newsId.orEmpty())
     NewsDetailContent(
         data = data,
@@ -49,40 +39,39 @@ fun NewsDetailScreen(
     )
 }
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewsDetailContent(
     data: NewsItem?,
     onBack: () -> Unit
 ) {
+    /*
+     This UI demonstrates the Box composable, which lets us layer content
+     Inside the Box, AsyncImage() is placed first, and everything you add after it will appear on top
+ */
     Box(
         modifier = Modifier
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(data = data?.image.orEmpty())
+                .data(data?.image.orEmpty())
                 .error(R.drawable.pic)
                 .placeholder(R.drawable.pic)
                 .crossfade(true)
                 .build(),
-            contentDescription = "bankIcon",
+            contentDescription = "News Image",
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(190.dp)
                 .background(Color.Blue)
         )
-        Column(
-            modifier = Modifier
-                .align(Alignment.TopStart)
-                .padding(),
-        ) {
+        Column {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color.Transparent
                 ),
-                navigationIcon = {
+                title = {
                     Row {
                         Spacer(modifier = Modifier.size(12.dp))
                         Icon(
@@ -93,11 +82,9 @@ fun NewsDetailContent(
                                 },
                             painter = painterResource(id = R.drawable.ic_back),
                             tint = Color.White,
-                            contentDescription = ""
+                            contentDescription = "Back Icon"
                         )
                     }
-                },
-                title = {
                 }
             )
 
@@ -125,10 +112,11 @@ fun NewsDetailContent(
 fun NewsDetail(
     data: NewsItem?
 ) {
+    // Using a Column composable to structure the detailed view of the news item.
+    // This includes the author's photo and name, the news category, and the news description.
     Column(
         modifier = Modifier
             .padding(top = 24.dp)
-            .fillMaxSize()
             .background(
                 color = Color.White,
                 shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
@@ -143,12 +131,12 @@ fun NewsDetail(
         ) {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(data = data?.userData?.photoUrl.orEmpty())
+                    .data(data?.userData?.photoUrl.orEmpty())
                     .error(R.drawable.pic)
                     .placeholder(R.drawable.pic)
                     .crossfade(true)
                     .build(),
-                contentDescription = "bankIcon",
+                contentDescription = "Author Photo",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .size(40.dp)
@@ -170,10 +158,9 @@ fun NewsDetail(
                     color = Color.Red,
                 )
             }
-
         }
         Spacer(modifier = Modifier.size(24.dp))
-        // news description
+        // Display the news description.
         Text(
             text = data?.description.orEmpty(),
             style = MaterialTheme.typography.paragraphLarge,
@@ -185,7 +172,6 @@ fun NewsDetail(
 @Preview(showBackground = true)
 @Composable
 fun NewsDetailPreview() {
-    // Calling our composable function to preview its UI
-    val data = getNewsById("1")
-    NewsDetailContent(data, {})
+    // Preview the NewsDetailScreen composable with sample data.
+    NewsDetailScreen("1", {})
 }
