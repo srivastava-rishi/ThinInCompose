@@ -69,3 +69,11 @@ val Typography.smallParagraph: TextStyle
         fontWeight = FontWeight.W400,
         fontSize = 10.sp
     )
+
+val Typography.low: TextStyle
+    get() = TextStyle(
+        fontFamily = blackFontFamily,
+        fontWeight = FontWeight.W400,
+        fontSize = 10.sp,
+        lineHeight = 20.sp,
+    )
