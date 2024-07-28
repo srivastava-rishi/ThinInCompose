@@ -142,6 +142,7 @@ private fun Test(
                         paint = Paint().apply {
                             color = Color(0xFFFFE7D6)
                             pathEffect = PathEffect.cornerPathEffect(cornerRadius)
+
                         })
                 }
                 // Point C
