@@ -47,11 +47,13 @@ class ThinkInComposeActivity : ComponentActivity() {
             composable(
                 "NewsDetailScreen/{newsId}",
                 // Screen for the NewsDetailScreen destination, with a dynamic newsId argument passed during navigation to avoid runtime exceptions.
-                arguments = listOf(navArgument("newsId") { type = NavType.StringType })
-            ) { backStackEntry ->
+                arguments = listOf(
+                    navArgument("newsId") { type = NavType.StringType }
+                )
+            ) { it ->
                 NewsDetailScreen(
                     // Retrieving the newsId from navigation arguments
-                    newsId = backStackEntry.arguments?.getString("newsId"),
+                    newsId = it.arguments?.getString("newsId"),
                     // Callback to navigate back to the previous screen
                     onBack = {
                         navController.popBackStack()

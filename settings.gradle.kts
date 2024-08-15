@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "ThinkInCompose"
 include(":app")
+include(":designsystem")
+include(":animation")

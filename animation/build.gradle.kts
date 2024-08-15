@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.thinkincompose"
+    namespace = "com.example.animation"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.thinkincompose"
+        applicationId = "com.example.animation"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -30,11 +30,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "1.8"
     }
     buildFeatures {
         compose = true
@@ -66,14 +66,4 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    // coil library
-    implementation("io.coil-kt:coil-compose:2.6.0")
-    // navigation
-    val nav_version = "2.7.7"
-    implementation("androidx.navigation:navigation-compose:$nav_version")
-
-    // get access of design system module
-    implementation(project(":designsystem"))
-
-    //
 }
